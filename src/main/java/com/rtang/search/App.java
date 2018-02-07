@@ -23,30 +23,30 @@ public class App {
     final CloudSolrClient cloudClient = getCloudSolrClient();
 
     get("/", (request, response) -> {
-      String search_new = "<div style='margin:auto;float:center;text-align:center;'><form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' style='width:700px;height:50px;font-size:14pt;margin:auto;'><br><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' style='width:500px;font-size:14pt;margin:auto;'></form></div>";
-      String search = "<form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' /><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' /></form></br>";
-      return search_new;
-    });
+        String search_new = "<div style='margin:auto;float:center;text-align:center;'><form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' style='width:700px;height:50px;font-size:14pt;margin:auto;'><br><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' style='width:500px;font-size:14pt;margin:auto;'></form></div>";
+        String search = "<form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' /><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' /></form></br>";
+        return search_new;
+        });
 
     post("/", (request, response) -> {
-      String search_new = "<div style='margin:auto;float:center;text-align:center;'><form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' style='width:700px;height:50px;font-size:14pt;margin:auto;'><br><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' style='width:500px;font-size:14pt;margin:auto;'></form></div>";
-      String search = "<form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' style='height:200px;font-size:14pt;text-align:center;'/><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' /></form></br>";
-      String query;
-      query = request.queryParams("query_trec");
-      if (!query.contains(":")) {
+        String search_new = "<div style='margin:auto;float:center;text-align:center;'><form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' style='width:700px;height:50px;font-size:14pt;margin:auto;'><br><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' style='width:500px;font-size:14pt;margin:auto;'></form></div>";
+        String search = "<form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' style='height:200px;font-size:14pt;text-align:center;'/><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' /></form></br>";
+        String query;
+        query = request.queryParams("query_trec");
+        if (!query.contains(":")) {
         query = "contents:" + query;
-      }
-      SolrDocumentList documents = queryTREC(client, query);
-      String keywords = null;
-      if (query.contains(":")) {
+        }
+        SolrDocumentList documents = queryTREC(client, query);
+        String keywords = null;
+        if (query.contains(":")) {
         keywords = query.split(":")[1];
-      }
-      if (documents == null) {
+        }
+        if (documents == null) {
         return search_new;
-      }
+        }
 
-      String results = "";
-      for (SolrDocument document : documents) {
+        String results = "";
+        for (SolrDocument document : documents) {
         String id = (String) document.getFieldValue("id");
         // String headline = (String) ((ArrayList) document.getFieldValue("headline")).get(0);
         // String profile = (String) document.getFieldValue("profile");
@@ -82,8 +82,8 @@ public class App {
         results += "<b>BYLINE: </b>" + boldWord(byline.replaceAll("\\<.*?>",""), keywords) + "</br>";
         results += "<b>TEXT: </b>" + boldWord(text.replaceAll("\\<.*?>",""), keywords) + "</br><hr>";
 
-      }
-      return search_new + results;
+        }
+        return search_new + results;
     });
   }
 
@@ -127,17 +127,17 @@ public class App {
 
   private static SolrClient getSolrClient() {
     return new HttpSolrClient.Builder(solrUrl)
-                             .withConnectionTimeout(10000)
-                             .withSocketTimeout(60000)
-                             .build();
+      .withConnectionTimeout(10000)
+      .withSocketTimeout(60000)
+      .build();
   }
 
   private static CloudSolrClient getCloudSolrClient() {
     return new CloudSolrClient.Builder()
-                              .withSolrUrl(cloudSolrUrl)
-                              .withConnectionTimeout(10000)
-                              .withSocketTimeout(60000)
-                              .build();
+      .withSolrUrl(cloudSolrUrl)
+      .withConnectionTimeout(10000)
+      .withSocketTimeout(60000)
+      .build();
   }
 
 }

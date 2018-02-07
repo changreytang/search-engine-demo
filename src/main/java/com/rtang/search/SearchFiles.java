@@ -41,7 +41,7 @@ public class SearchFiles {
     boolean raw = false;
     String queryString = null;
     int hitsPerPage = 10;
-    
+
     for(int i = 0;i < args.length;i++) {
       if ("-index".equals(args[i])) {
         index = args[i+1];
@@ -69,7 +69,7 @@ public class SearchFiles {
         i++;
       }
     }
-    
+
     IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(index).toPath()));
     IndexSearcher searcher = new IndexSearcher(reader);
     Analyzer analyzer = new StandardAnalyzer();
@@ -96,10 +96,10 @@ public class SearchFiles {
       if (line.length() == 0) {
         break;
       }
-      
+
       Query query = parser.parse(line);
       System.out.println("Searching for: " + query.toString(field));
-            
+
       if (repeat > 0) {                           // repeat & time as benchmark
         Date start = new Date();
         for (int i = 0; i < repeat; i++) {
@@ -129,7 +129,7 @@ public class SearchFiles {
    *
    */
   public static void doPagingSearch(BufferedReader in, IndexSearcher searcher, Query query,
-                                     int hitsPerPage, boolean raw, boolean interactive) throws IOException {
+      int hitsPerPage, boolean raw, boolean interactive) throws IOException {
 
     // Collect enough docs to show 5 pages
     TopDocs results = searcher.search(query, 5 * hitsPerPage);
@@ -172,7 +172,7 @@ public class SearchFiles {
         } else {
           System.out.println((i+1) + ". " + "No path for this document");
         }
-                  
+
       }
 
       if (!interactive || end == 0) {
@@ -190,7 +190,7 @@ public class SearchFiles {
             System.out.print("(n)ext page, ");
           }
           System.out.println("(q)uit or enter number to jump to a page.");
-          
+
           String line = in.readLine();
           if (line.length() == 0 || line.charAt(0)=='q') {
             quit = true;

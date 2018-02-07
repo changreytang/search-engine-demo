@@ -1,4 +1,15 @@
-package com.rtang.search; import java.io.BufferedReader; import java.io.File; import java.io.FileNotFoundException; import java.io.FileReader; import java.io.IOException; import java.util.Iterator; import java.util.regex.Matcher; import java.util.regex.Pattern; import org.apache.solr.client.solrj.*; import org.apache.solr.common.*;
+package com.rtang.search;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.solr.client.solrj.*;
+import org.apache.solr.common.*;
 
 
 public class TrecSolrDocIterator implements Iterator<SolrInputDocument> {

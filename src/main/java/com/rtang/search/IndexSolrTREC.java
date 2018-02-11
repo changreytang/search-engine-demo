@@ -24,8 +24,10 @@ public class IndexSolrTREC {
     String indexPath = null;
     String docsPath = null;
     Boolean create = null;
+
     SolrClient  client = getSolrClient();
     CloudSolrClient cloudClient = getCloudSolrClient();
+
     for(int i=0;i<args.length;i++) {
       if ("-index".equals(args[i])) {
         indexPath = args[i+1];

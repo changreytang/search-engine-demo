@@ -32,7 +32,6 @@ public class TrecSolrDocIterator implements Iterator<SolrInputDocument> {
       SolrInputDocument doc = new SolrInputDocument();
       StringBuffer sb = new StringBuffer();
       Pattern docno_tag = Pattern.compile("<DOCNO>(.+?)</DOCNO>");
-      Pattern date_tag = Pattern.compile("<DATE>(.+?)</DATE>");
       Pattern headline_tag = Pattern.compile("<HEADLINE>(.+?)</HEADLINE>");
       Pattern profile_tag = Pattern.compile("<PROFILE>(.+?)</PROFILE>");
       Pattern byline_tag = Pattern.compile("<BYLINE>(.+?)</BYLINE>");
@@ -58,45 +57,11 @@ public class TrecSolrDocIterator implements Iterator<SolrInputDocument> {
             sb.append(line);
             break;
           }
-
-          // Matcher docno_m = docno_tag.matcher(line);
-          // Matcher date_m = date_tag.matcher(line);
-          // Matcher headline_m = headline_tag.matcher(line);
-          // Matcher profile_m = profile_tag.matcher(line);
-          // Matcher byline_m = byline_tag.matcher(line);
-          // Matcher text_m = text_tag.matcher(line);
-
-          // if (docno_m.find()) {
-          // 	String docno = docno_m.group(1);
-          // 	doc.addField("id", docno);
-          // }
-          // if (date_m.find()) {
-          // 	String date = date_m.group(1);
-          // 	doc.addField("date", date);
-          // }
-          // if (headline_m.find()) {
-          // 	String headline = headline_m.group(1);
-          // 	doc.addField("headline", headline);
-          // }
-          // if (profile_m.find()) {
-          // 	String profile = profile_m.group(1);
-          // 	doc.addField("profile", profile);
-          // }
-          // if (byline_m.find()) {
-          // 	String byline = byline_m.group(1);
-          // 	doc.addField("byline", byline);
-          // }
-          // if (text_m.find()) {
-          // 	String text = text_m.group(1);
-          // 	doc.addField("text", text);
-          // }
-
           sb.append(line);
         }
         line = sb.toString();
 
         Matcher docno_m = docno_tag.matcher(line);
-        Matcher date_m = date_tag.matcher(line);
         Matcher headline_m = headline_tag.matcher(line);
         Matcher profile_m = profile_tag.matcher(line);
         Matcher byline_m = byline_tag.matcher(line);
@@ -106,10 +71,6 @@ public class TrecSolrDocIterator implements Iterator<SolrInputDocument> {
           String docno = docno_m.group(1);
           doc.addField("id", docno);
         }
-        // if (date_m.find()) {
-        //   String date = date_m.group(1);
-        //   doc.addField("date", date);
-        // }
         if (headline_m.find()) {
           String headline = headline_m.group(1);
           doc.addField("headline", headline);

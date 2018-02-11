@@ -17,10 +17,10 @@ public class App {
 
   public static void main(String[] args) {
     final SolrClient client = getSolrClient();
+    final CloudSolrClient cloudClient = getCloudSolrClient();
     Pattern headline_tag = Pattern.compile("<HEADLINE>(.+?)</HEADLINE>"); Pattern profile_tag = Pattern.compile("<PROFILE>(.+?)</PROFILE>");
     Pattern byline_tag = Pattern.compile("<BYLINE>(.+?)</BYLINE>");
     Pattern text_tag = Pattern.compile("<TEXT>(.+?)</TEXT>");
-    final CloudSolrClient cloudClient = getCloudSolrClient();
 
     get("/", (request, response) -> {
         String search_new = "<div style='margin:auto;float:center;text-align:center;'><form action='/' method='POST'><input class='form-control' id='query_trec' name='query_trec' placeholder='' type='text' value='' style='width:700px;height:50px;font-size:14pt;margin:auto;'><br><input id='btn_query' name='btn_query' type='submit' class='btn btn-default' value='Query' style='width:500px;font-size:14pt;margin:auto;'></form></div>";
@@ -108,7 +108,6 @@ public class App {
   private static SolrDocumentList queryTREC(SolrClient client, String query) {
     final Map<String, String> queryParamMap = new HashMap<String, String>();
     queryParamMap.put("q", query);
-    // queryParamMap.put("fl", "id, name");
     MapSolrParams queryParams = new MapSolrParams(queryParamMap);
     SolrDocumentList documents = null;
     try {
